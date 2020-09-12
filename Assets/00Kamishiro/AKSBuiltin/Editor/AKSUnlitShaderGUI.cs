@@ -32,7 +32,7 @@ namespace AKSBuiltin
             public static string primaryMapsText = "Main Maps";
             public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
             public static string mainTitle = "Main";
-            public static string renderingOp = "Rendering Option";
+            public static string renderingOp = "Rendering Options";
             public static string title = "AK_Unlit Shader v1.0 by AoiKamishiro";
         }
         private MaterialProperty blendMode = null;

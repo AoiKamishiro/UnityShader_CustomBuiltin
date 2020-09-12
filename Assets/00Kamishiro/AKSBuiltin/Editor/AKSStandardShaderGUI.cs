@@ -71,7 +71,7 @@ namespace AKSBuiltin
             public static string reflectionTitle = "Reflection";
             public static string scaleOffsetTitle = "Scale Offset";
             public static string detailTitle = "Detail";
-            public static string renderingOpTitle = "Rendering Option";
+            public static string renderingOpTitle = "Rendering Options";
             public static string title = "AK_Standard Shader v1.0 by AoiKamishiro";
         }
 
@@ -213,8 +213,9 @@ namespace AKSBuiltin
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailMaskText, detailMask);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailAlbedoText, detailAlbedoMap);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
-                    EditorGUI.indentLevel += 2;
+                    EditorGUI.indentLevel +=3;
                     m_MaterialEditor.TextureScaleOffsetProperty(detailAlbedoMap);
+                    EditorGUI.indentLevel--;
                     m_MaterialEditor.ShaderProperty(uvSetSecondary, Styles.uvSetLabel.text);
                     EditorGUI.indentLevel -= 2;
                 }

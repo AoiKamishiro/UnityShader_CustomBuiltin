@@ -10,6 +10,6 @@ Unity 2018.4.20f1
 ### 使用方法
 UnityPackage をインポート後、マテリアルに使用するシェーダーに AKStandaed か AKUnlit を指定する事で使用できます。
 ### 連絡先
-[Twitter: @aoi3192](https://twitter.com/aoi3192)
-[Booth: 神城工業](https://kamishirolab.booth.pm/)
+[Twitter: @aoi3192](https://twitter.com/aoi3192)  
+[Booth: 神城工業](https://kamishirolab.booth.pm/)  
 VRC: 神城アオイ

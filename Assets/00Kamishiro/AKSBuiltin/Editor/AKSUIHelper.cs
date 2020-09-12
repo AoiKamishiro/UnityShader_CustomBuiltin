@@ -48,5 +48,10 @@ namespace AKSBuiltin
             }
             return display;
         }
+        public static void DispContact(){
+            //areadme.md
+            //Usqge.jp
+            ShurikenHeader("Contact");
+        }
     }
 }
