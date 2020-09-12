@@ -16,7 +16,13 @@ using UnityEditor;
 namespace AKSBuiltin
 {
     internal class AKSUnlitShaderGUI : ShaderGUI
-    {
+    {private const string ver = "Version: 1.00";
+        private const string Text = "説明（日本語）";
+        private const string Text1 = "README.md";
+        private const string title = "AK_Unlit Shader";
+        private const string author = "Author: AoiKamishiro / 神城アオイ";
+        private const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
+        private const string linkDescription = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKUnlit_Description.md";
         public enum BlendMode
         {
             Opaque,
@@ -33,7 +39,6 @@ namespace AKSBuiltin
             public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
             public static string mainTitle = "Main";
             public static string renderingOp = "Rendering Options";
-            public static string title = "AK_Unlit Shader v1.0 by AoiKamishiro";
         }
         private MaterialProperty blendMode = null;
         private MaterialProperty albedoMap = null;
@@ -70,7 +75,6 @@ namespace AKSBuiltin
         public void ShaderPropertiesGUI(Material material)
         {
             EditorGUIUtility.labelWidth = 0f;
-            UIHelper.ShurikenHeader(Styles.title);
             EditorGUILayout.Space();
             EditorGUI.BeginChangeCheck();
             {
@@ -99,6 +103,14 @@ namespace AKSBuiltin
                     // MaterialChanged((Material)obj);
                 }
             }
+                UIHelper.ShurikenHeader(title);
+                EditorGUILayout.LabelField(author);
+                EditorGUILayout.LabelField(ver);
+                EditorGUILayout.Space();
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button(Text1)) { UIHelper.OpenLink(linkReadme); }
+                if (GUILayout.Button(Text)) { UIHelper.OpenLink(linkDescription); }
+                EditorGUILayout.EndHorizontal();
         }
         public override void AssignNewShaderToMaterial(Material material, Shader oldShader, Shader newShader)
         {

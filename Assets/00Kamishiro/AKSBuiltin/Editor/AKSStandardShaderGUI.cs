@@ -17,6 +17,14 @@ namespace AKSBuiltin
 {
     internal class AKSStandardShaderGUI : ShaderGUI
     {
+        private const string ver = "Version: 1.00";
+        private const string Text = "説明（日本語）";
+        private const string Text1 = "README.md";
+        private const string title = "AK_Standard Shader";
+        private const string author = "Author: AoiKamishiro / 神城アオイ";
+        private const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
+        private const string linkDescription = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKStandard_Description.md";
+
         private enum WorkflowMode
         {
             Specular_,
@@ -72,7 +80,6 @@ namespace AKSBuiltin
             public static string scaleOffsetTitle = "Scale Offset";
             public static string detailTitle = "Detail";
             public static string renderingOpTitle = "Rendering Options";
-            public static string title = "AK_Standard Shader v1.0 by AoiKamishiro";
         }
 
         #region Material Property
@@ -177,7 +184,6 @@ namespace AKSBuiltin
         public void ShaderPropertiesGUI(Material material)
         {
             EditorGUIUtility.labelWidth = 0f;
-            UIHelper.ShurikenHeader(Styles.title);
             EditorGUILayout.Space();
             EditorGUI.BeginChangeCheck();
             {
@@ -213,7 +219,7 @@ namespace AKSBuiltin
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailMaskText, detailMask);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailAlbedoText, detailAlbedoMap);
                     m_MaterialEditor.TexturePropertySingleLine(Styles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
-                    EditorGUI.indentLevel +=3;
+                    EditorGUI.indentLevel += 3;
                     m_MaterialEditor.TextureScaleOffsetProperty(detailAlbedoMap);
                     EditorGUI.indentLevel--;
                     m_MaterialEditor.ShaderProperty(uvSetSecondary, Styles.uvSetLabel.text);
@@ -256,6 +262,14 @@ namespace AKSBuiltin
                     //MaterialChanged((Material)obj, m_WorkflowMode);
                 }
             }
+                UIHelper.ShurikenHeader(title);
+                EditorGUILayout.LabelField(author);
+                EditorGUILayout.LabelField(ver);
+                EditorGUILayout.Space();
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button(Text1)) { UIHelper.OpenLink(linkReadme); }
+                if (GUILayout.Button(Text)) { UIHelper.OpenLink(linkDescription); }
+                EditorGUILayout.EndHorizontal();
         }
         internal void DetermineWorkflow(MaterialProperty[] props)
         {
@@ -310,7 +324,7 @@ namespace AKSBuiltin
                 blendMode.floatValue = (float)mode;
                 foreach (UnityEngine.Object obj in blendMode.targets)
                 {
-                    MaterialChanged((Material)obj,m_WorkflowMode);
+                    MaterialChanged((Material)obj, m_WorkflowMode);
                 }
             }
 

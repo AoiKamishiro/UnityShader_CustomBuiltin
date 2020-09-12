@@ -8,7 +8,9 @@ Unlit シェーダーは、テクスチャとカラーの両方の入力に対�
 ### 想定環境
 Unity 2018.4.20f1
 ### 使用方法
-UnityPackage をインポート後、マテリアルに使用するシェーダーに AKStandaed か AKUnlit を指定する事で使用できます。
+UnityPackage をインポート後、マテリアルに使用するシェーダーに AKStandaed か AKUnlit を指定する事で使用できます。  
+[AKStandard の項目説明](https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKStandard_Description.md)  
+[AKUnlit の項目説明](https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKUnlit_Description.md)
 ### 連絡先
 [Twitter: @aoi3192](https://twitter.com/aoi3192)  
 [Booth: 神城工業](https://kamishirolab.booth.pm/)  
