@@ -1,5 +1,6 @@
 # UnityShader_CustomBuiltin
 ## [最新版のダウンロードはこちら](https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/releases)
+## [English](https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/README_EN.md)
 ## ※更新の際は以前のバージョンを削除してからインポートしてください。  
 ### シェーダーについて
 改変 StandardShader と UnlitShader です。
