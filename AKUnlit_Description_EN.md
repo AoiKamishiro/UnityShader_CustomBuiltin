@@ -9,7 +9,7 @@
     * Sacle Offset - Sets the texture repeatability, etc., which is reflected in the Albedo and Emission textures.
 ## Options
 * Rendering Options - settings for general drawing options.
-    * Culling Mask - sj for the object's front and back display settings.
+    * Culling Mask - The display settings for the front and back of the object.
         * OFF - draw both front and back sides.
         * Front - draw only the back side.
         * Back - draw only the front side.

@@ -9,7 +9,7 @@
     * Sacle Offset - テクスチャの繰り返し表示などの設定を行います。Albedo テクスチャと Emission テクスチャに反映されます。
 ## Options
 * Rendering Options - 描画全般に関するオプションの設定です。
-    * Culling Mask - オブジェクトの表面や裏面の表示設定でsj。
+    * Culling Mask - オブジェクトの表面や裏面の表示設定です。
         * OFF - 表面裏面ともに描画します。
         * Front - 裏面のみ描画します。
         * Back - 表面のみ描画します。

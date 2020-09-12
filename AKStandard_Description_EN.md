@@ -35,7 +35,7 @@
     * Specular Highlights - Whether or not to use specular reflection highlights.
     * Reflection - whether or not to use reflection reflections.
 * Rendering Options - set the general drawing options.
-    * Culling Mask - sj for the object's front and back display settings.
+    * Culling Mask - The display settings for the front and back of the object.
         * OFF - draws both the front and back sides of the object.
         * Front - draw only the back side.
         * Back - draw only the front side.

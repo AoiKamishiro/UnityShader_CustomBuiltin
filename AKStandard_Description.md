@@ -35,7 +35,7 @@
     * Specular Highlights - 鏡面反射のハイライトを使用するかどうか。
     * Reflection - 反射の映り込みを使用するかどうか。
 * Rendering Options - 描画全般に関するオプションの設定です。
-    * Culling Mask - オブジェクトの表面や裏面の表示設定でsj。
+    * Culling Mask - オブジェクトの表面や裏面の表示設定です。
         * OFF - 表面裏面ともに描画します。
         * Front - 裏面のみ描画します。
         * Back - 表面のみ描画します。
