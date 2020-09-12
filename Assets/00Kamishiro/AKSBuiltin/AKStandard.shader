@@ -1,6 +1,14 @@
-// Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
-
-Shader "Kamishiro/Standard"
+/*
+ * Copyright (c) 2020 AoiKamishiro
+ * 
+ * This code is provided under the MIT license.
+ *
+ * This program uses the following code, which is provided under the MIT License.
+ * https://download.unity3d.com/download_unity/008688490035/builtin_shaders-2018.4.20f1.zip?_ga=2.171325672.957521966.1599549120-262519615.1592172043
+ * 
+ */
+ 
+Shader "AKStandard"
 {
     Properties
     {
@@ -11,18 +19,19 @@ Shader "Kamishiro/Standard"
 
         _Glossiness ("Smoothness", Range(0.0, 1.0)) = 0.5
         _GlossMapScale ("Smoothness Scale", Range(0.0, 1.0)) = 1.0
-        [Enum(Metallic Alpha, 0, Albedo Alpha, 1)] _SmoothnessTextureChannel ("Smoothness texture channel", Float) = 0
+        [Enum(Metallic Alpha, 0, Albedo Alpha, 1, Roughness Map, 2)] _SmoothnessTextureChannel ("Smoothness texture channel", Float) = 0
 
         [Gamma] _Metallic ("Metallic", Range(0.0, 1.0)) = 0.0
         _MetallicGlossMap ("Metallic", 2D) = "white" { }
+        _RoughnessMap ("Smoothness", 2D) = "black" { }
 
         [ToggleOff] _SpecularHighlights ("Specular Highlights", Float) = 1.0
         [ToggleOff] _GlossyReflections ("Glossy Reflections", Float) = 1.0
 
-        _BumpScale ("Scale", Float) = 1.0
+        _BumpScale ("Scale", Range(-1.0, 1.0)) = 1.0
         _BumpMap ("Normal Map", 2D) = "bump" { }
 
-        _Parallax ("Height Scale", Range(0.005, 0.08)) = 0.02
+        _Parallax ("Height Scale", Range(0, 0.1)) = 0.02
         _ParallaxMap ("Height Map", 2D) = "black" { }
 
         _OcclusionStrength ("Strength", Range(0.0, 1.0)) = 1.0
@@ -38,15 +47,15 @@ Shader "Kamishiro/Standard"
         _DetailNormalMap ("Normal Map", 2D) = "bump" { }
 
         [Enum(UV0, 0, UV1, 1)] _UVSec ("UV Set for secondary textures", Float) = 0
-
-        [Enum(UnityEngine.Rendering.CullMode)] _CullMode ("Culling Mode", float) = 2
+        [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull Mode", float) = 2
 
 
         // Blending state
         [HideInInspector] _Mode ("__mode", Float) = 0.0
-        [HideInInspector] _SrcBlend ("__src", Float) = 1.0
-        [HideInInspector] _DstBlend ("__dst", Float) = 0.0
-        [HideInInspector] _ZWrite ("__zw", Float) = 1.0
+        [HideInInspector] [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("__src", Float) = 1.0
+        [HideInInspector] [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("__dst", Float) = 0.0
+        [HideInInspector] [Enum(Off, 0, On, 1)] _ZWrite ("__zw", Float) = 1.0
+        [HideInInspector] [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest ("__zt", Float) = 4.0
     }
 
     CGINCLUDE
@@ -57,7 +66,7 @@ Shader "Kamishiro/Standard"
     {
         Tags { "RenderType" = "Opaque" "PerformanceChecks" = "False" }
         LOD 300
-        Cull [_CullMode]
+        Cull [_Cull]
 
 
         // ------------------------------------------------------------------
@@ -85,6 +94,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature _ _GLOSSYREFLECTIONS_OFF
             #pragma shader_feature _PARALLAXMAP
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
 
             #pragma multi_compile_fwdbase
             #pragma multi_compile_fog
@@ -94,7 +104,7 @@ Shader "Kamishiro/Standard"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "UnityStandardCoreForward.cginc"
+            #include "KamishiroStandardCoreForward.cginc"
             
             ENDCG
             
@@ -111,7 +121,7 @@ Shader "Kamishiro/Standard"
                 Color(0, 0, 0, 0)
             }// in additive pass fog should be black
             ZWrite Off
-            ZTest LEqual
+            ZTest [_ZTest]
             
             CGPROGRAM
             
@@ -127,6 +137,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature _PARALLAXMAP
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
 
             #pragma multi_compile_fwdadd_fullshadows
             #pragma multi_compile_fog
@@ -135,7 +146,7 @@ Shader "Kamishiro/Standard"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "UnityStandardCoreForward.cginc"
+            #include "KamishiroStandardCoreForward.cginc"
             
             ENDCG
             
@@ -147,7 +158,7 @@ Shader "Kamishiro/Standard"
             Name "ShadowCaster"
             Tags { "LightMode" = "ShadowCaster" }
 
-            ZWrite On ZTest LEqual
+            ZWrite On ZTest [_ZTest]
             
             CGPROGRAM
             
@@ -160,6 +171,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _METALLICGLOSSMAP
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature _PARALLAXMAP
+            #pragma shader_feature _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
             #pragma multi_compile_shadowcaster
             #pragma multi_compile_instancing
             // Uncomment the following line to enable dithering LOD crossfade. Note: there are more in the file to uncomment for other passes.
@@ -196,6 +208,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature _PARALLAXMAP
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
 
             #pragma multi_compile_prepassfinal
             #pragma multi_compile_instancing
@@ -231,6 +244,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature EDITOR_VISUALIZATION
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
 
             #include "UnityStandardMeta.cginc"
             ENDCG
@@ -242,7 +256,7 @@ Shader "Kamishiro/Standard"
     {
         Tags { "RenderType" = "Opaque" "PerformanceChecks" = "False" }
         LOD 150
-        Cull [_CullMode]
+        Cull [_Cull]
 
         // ------------------------------------------------------------------
         //  Base forward pass (directional light, emission, lightmaps, ...)
@@ -265,6 +279,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature _ _GLOSSYREFLECTIONS_OFF
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
             // SM2.0: NOT SUPPORTED shader_feature ___ _DETAIL_MULX2
             // SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
 
@@ -275,7 +290,7 @@ Shader "Kamishiro/Standard"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "UnityStandardCoreForward.cginc"
+            #include "KamishiroStandardCoreForward.cginc"
             
             ENDCG
             
@@ -292,7 +307,7 @@ Shader "Kamishiro/Standard"
                 Color(0, 0, 0, 0)
             }// in additive pass fog should be black
             ZWrite Off
-            ZTest LEqual
+            ZTest [_ZTest]
             
             CGPROGRAM
             
@@ -304,6 +319,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature ___ _DETAIL_MULX2
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
             // SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
             #pragma skip_variants SHADOWS_SOFT
 
@@ -312,7 +328,7 @@ Shader "Kamishiro/Standard"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "UnityStandardCoreForward.cginc"
+            #include "KamishiroStandardCoreForward.cginc"
             
             ENDCG
             
@@ -324,7 +340,7 @@ Shader "Kamishiro/Standard"
             Name "ShadowCaster"
             Tags { "LightMode" = "ShadowCaster" }
 
-            ZWrite On ZTest LEqual
+            ZWrite On ZTest [_ZTest]
             
             CGPROGRAM
             
@@ -333,6 +349,7 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
             #pragma shader_feature _METALLICGLOSSMAP
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            #pragma shader_feature _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
             #pragma skip_variants SHADOWS_SOFT
             #pragma multi_compile_shadowcaster
 
@@ -365,14 +382,13 @@ Shader "Kamishiro/Standard"
             #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature EDITOR_VISUALIZATION
+            #pragma shader_feature _ _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
 
             #include "UnityStandardMeta.cginc"
             ENDCG
             
         }
     }
-
-
-    FallBack "VertexLit"
-    CustomEditor "AKSStandardShaderGUI"
+    FallBack "AKUnlit"
+    CustomEditor "AKSBuiltin.AKSStandardShaderGUI"
 }

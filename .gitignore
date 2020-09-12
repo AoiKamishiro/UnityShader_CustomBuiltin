@@ -59,6 +59,8 @@ sysinfo.txt
 crashlytics-build.properties
 
 #Additional Settings
+/.vscode/
+debug.log
 /[Pp]rojectSettings/
 /[Pp]ackages/
 /[Aa]ssets/*
