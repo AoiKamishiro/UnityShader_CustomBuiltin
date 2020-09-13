@@ -10,14 +10,13 @@
  */
 
 using System;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace AKSBuiltin
 {
     internal class AKSUnlitShaderGUI : ShaderGUI
     {
-        private const string ver = "1.00";
         public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
         public enum BlendMode
         {
@@ -64,20 +63,20 @@ namespace AKSBuiltin
             EditorGUI.BeginChangeCheck();
             {
                 BlendModePopup();
-                UIHelper.ShurikenHeader(Styles.primaryMapsText);
-                GUILayout.Label(Styles.mainTitle, EditorStyles.boldLabel);
-                m_MaterialEditor.TexturePropertySingleLine(Styles.albedoText, albedoMap, albedoColor);
+                AKSUIHelper.ShurikenHeader(AKSStyles.primaryMapsText);
+                GUILayout.Label(AKSStyles.mainTitle, EditorStyles.boldLabel);
+                m_MaterialEditor.TexturePropertySingleLine(AKSStyles.albedoText, albedoMap, albedoColor);
                 if (((BlendMode)material.GetFloat("_ModeU") == BlendMode.Cutout))
                 {
-                    m_MaterialEditor.ShaderProperty(alphaCutoff, Styles.alphaCutoffText.text, MaterialEditor.kMiniTextureFieldLabelIndentLevel + 1);
+                    m_MaterialEditor.ShaderProperty(alphaCutoff, AKSStyles.alphaCutoffText.text, MaterialEditor.kMiniTextureFieldLabelIndentLevel + 1);
                 }
                 EditorGUI.indentLevel += 2;
                 m_MaterialEditor.TextureScaleOffsetProperty(albedoMap);
                 EditorGUI.indentLevel -= 2;
-                UIHelper.ShurikenHeader("Options");
-                GUILayout.Label(Styles.renderingOpTitle, EditorStyles.boldLabel);
+                AKSUIHelper.ShurikenHeader("Options");
+                GUILayout.Label(AKSStyles.renderingOpTitle, EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                m_MaterialEditor.ShaderProperty(cullMode, Styles.cullModeText);
+                m_MaterialEditor.ShaderProperty(cullMode, AKSStyles.cullModeText);
                 m_MaterialEditor.RenderQueueField();
                 EditorGUI.indentLevel--;
             }
@@ -88,13 +87,13 @@ namespace AKSBuiltin
                     // MaterialChanged((Material)obj);
                 }
             }
-            UIHelper.ShurikenHeader(Styles.nameAKUnlit);
-            EditorGUILayout.LabelField(Styles.author);
-            EditorGUILayout.LabelField(Styles.version + ver);
+            AKSUIHelper.ShurikenHeader(AKSStyles.nameAKUnlit);
+            EditorGUILayout.LabelField(AKSStyles.author);
+            AKSManager.DisplayVersion();
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button(Styles.btnReadme)) { UIHelper.OpenLink(Styles.linkReadme); }
-            if (GUILayout.Button(Styles.btnDescription)) { UIHelper.OpenLink(Styles.linkDescriptionAKUnlit); }
+            if (GUILayout.Button(AKSStyles.btnReadme)) { AKSUIHelper.OpenLink(AKSStyles.linkReadme); }
+            if (GUILayout.Button(AKSStyles.btnDescription)) { AKSUIHelper.OpenLink(AKSStyles.linkDescriptionAKUnlit); }
             EditorGUILayout.EndHorizontal();
         }
         public override void AssignNewShaderToMaterial(Material material, Shader oldShader, Shader newShader)

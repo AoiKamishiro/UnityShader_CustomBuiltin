@@ -1,17 +1,18 @@
 /*
- * Copyright (c) 2020 AoiKamishiro
- * 
- * This code is provided under the MIT license.
- *
- * This program uses the following code, which is provided under the MIT License.
- * https://download.unity3d.com/download_unity/008688490035/builtin_shaders-2018.4.20f1.zip?_ga=2.171325672.957521966.1599549120-262519615.1592172043
- * 
- */
- 
- Shader "AKUnlit"
+* Copyright (c) 2020 AoiKamishiro
+*
+* This code is provided under the MIT license.
+*
+* This program uses the following code, which is provided under the MIT License.
+* https://download.unity3d.com/download_unity/008688490035/builtin_shaders-2018.4.20f1.zip?_ga=2.171325672.957521966.1599549120-262519615.1592172043
+*
+*/
+
+Shader "AKUnlit"
 {
     Properties
     {
+        [HideInInspector]_Version ("Version", int) = 0
         _Color ("Albedo", Color) = (1, 1, 1, 1)
         _MainTex ("Albedo", 2D) = "white" { }
         _Cutoff ("Alpha cutoff", Range(0, 1)) = 0.5

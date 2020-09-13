@@ -10,14 +10,13 @@
  */
 
 using System;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace AKSBuiltin
 {
     internal class AKSStandardShaderGUI : ShaderGUI
     {
-        private const string ver = "1.00";
         public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
         private enum WorkflowMode
         {
@@ -44,7 +43,6 @@ namespace AKSBuiltin
         private MaterialProperty albedoMap = null;
         private MaterialProperty albedoColor = null;
         private MaterialProperty alphaCutoff = null;
-        private MaterialProperty specularMap = null;
         private MaterialProperty metallicMap = null;
         private MaterialProperty metallic = null;
         private MaterialProperty smoothness = null;
@@ -75,9 +73,9 @@ namespace AKSBuiltin
         private MaterialEditor m_MaterialEditor;
         private WorkflowMode m_WorkflowMode = WorkflowMode.Metallic;
         private bool m_FirstTimeApply = true;
-        static bool foldMain = true;
-        static bool foldSecond = true;
-        static bool foldOption = true;
+        private static bool foldMain = true;
+        private static bool foldSecond = true;
+        private static bool foldOption = true;
 
         public void FindProperties(MaterialProperty[] props)
         {
@@ -85,7 +83,6 @@ namespace AKSBuiltin
             albedoMap = FindProperty("_MainTex", props);
             albedoColor = FindProperty("_Color", props);
             alphaCutoff = FindProperty("_Cutoff", props);
-            specularMap = FindProperty("_SpecGlossMap", props, false);
             metallicMap = FindProperty("_MetallicGlossMap", props, false);
             metallic = FindProperty("_Metallic", props, false);
             if (metallicMap != null && metallic != null)
@@ -145,19 +142,19 @@ namespace AKSBuiltin
             EditorGUI.BeginChangeCheck();
             {
                 BlendModePopup();
-                foldMain = UIHelper.ShurikenFoldout(Styles.primaryMapsText, foldMain);
+                foldMain = AKSUIHelper.ShurikenFoldout(AKSStyles.primaryMapsText, foldMain);
                 if (foldMain)
                 {
-                    GUILayout.Label(Styles.mainTitle, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.mainTitle, EditorStyles.boldLabel);
                     DoAlbedoArea(material);
                     DoNormalArea();
-                    m_MaterialEditor.TexturePropertySingleLine(Styles.heightMapText, heightMap, heightMap.textureValue != null ? heigtMapScale : null);
-                    m_MaterialEditor.TexturePropertySingleLine(Styles.occlusionText, occlusionMap, occlusionMap.textureValue != null ? occlusionStrength : null);
-                    GUILayout.Label(Styles.emissionTitle, EditorStyles.boldLabel);
+                    m_MaterialEditor.TexturePropertySingleLine(AKSStyles.heightMapText, heightMap, heightMap.textureValue != null ? heigtMapScale : null);
+                    m_MaterialEditor.TexturePropertySingleLine(AKSStyles.occlusionText, occlusionMap, occlusionMap.textureValue != null ? occlusionStrength : null);
+                    GUILayout.Label(AKSStyles.emissionTitle, EditorStyles.boldLabel);
                     DoEmissionArea(material);
-                    GUILayout.Label(Styles.reflectionTitle, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.reflectionTitle, EditorStyles.boldLabel);
                     DoSpecularMetallicArea();
-                    GUILayout.Label(Styles.scaleOffsetTitle, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.scaleOffsetTitle, EditorStyles.boldLabel);
                     EditorGUI.indentLevel += 2;
                     EditorGUI.BeginChangeCheck();
                     {
@@ -169,43 +166,43 @@ namespace AKSBuiltin
                     }
                     EditorGUI.indentLevel -= 2;
                 }
-                foldSecond = UIHelper.ShurikenFoldout(Styles.secondaryMapsText, foldSecond);
+                foldSecond = AKSUIHelper.ShurikenFoldout(AKSStyles.secondaryMapsText, foldSecond);
                 if (foldSecond)
                 {
-                    GUILayout.Label(Styles.detailTitle, EditorStyles.boldLabel);
-                    m_MaterialEditor.TexturePropertySingleLine(Styles.detailMaskText, detailMask);
-                    m_MaterialEditor.TexturePropertySingleLine(Styles.detailAlbedoText, detailAlbedoMap);
-                    m_MaterialEditor.TexturePropertySingleLine(Styles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
+                    GUILayout.Label(AKSStyles.detailTitle, EditorStyles.boldLabel);
+                    m_MaterialEditor.TexturePropertySingleLine(AKSStyles.detailMaskText, detailMask);
+                    m_MaterialEditor.TexturePropertySingleLine(AKSStyles.detailAlbedoText, detailAlbedoMap);
+                    m_MaterialEditor.TexturePropertySingleLine(AKSStyles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
                     EditorGUI.indentLevel += 3;
                     m_MaterialEditor.TextureScaleOffsetProperty(detailAlbedoMap);
                     EditorGUI.indentLevel--;
-                    m_MaterialEditor.ShaderProperty(uvSetSecondary, Styles.uvSetLabel.text);
+                    m_MaterialEditor.ShaderProperty(uvSetSecondary, AKSStyles.uvSetLabel.text);
                     EditorGUI.indentLevel -= 2;
                 }
-                foldOption = UIHelper.ShurikenFoldout(Styles.options, foldOption);
+                foldOption = AKSUIHelper.ShurikenFoldout(AKSStyles.options, foldOption);
                 if (foldOption)
                 {
-                    GUILayout.Label(Styles.forwardText, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.forwardText, EditorStyles.boldLabel);
                     EditorGUI.indentLevel += 1;
                     if (highlights != null)
                     {
-                        m_MaterialEditor.ShaderProperty(highlights, Styles.highlightsText);
+                        m_MaterialEditor.ShaderProperty(highlights, AKSStyles.highlightsText);
                     }
                     if (reflections != null)
                     {
-                        m_MaterialEditor.ShaderProperty(reflections, Styles.reflectionsText);
+                        m_MaterialEditor.ShaderProperty(reflections, AKSStyles.reflectionsText);
                     }
                     EditorGUI.indentLevel -= 1;
-                    GUILayout.Label(Styles.renderingOpTitle, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.renderingOpTitle, EditorStyles.boldLabel);
                     EditorGUI.indentLevel += 1;
-                    m_MaterialEditor.ShaderProperty(cullMode, Styles.cullModeText);
+                    m_MaterialEditor.ShaderProperty(cullMode, AKSStyles.cullModeText);
                     m_MaterialEditor.RenderQueueField();
                     //m_MaterialEditor.ShaderProperty(ztest, "Z Test");
                     //m_MaterialEditor.ShaderProperty(zwrite, "Z Write");
                     //m_MaterialEditor.ShaderProperty(srcFactor, "Src Factor");
                     //m_MaterialEditor.ShaderProperty(dstFactor, "Dst Factor");
                     EditorGUI.indentLevel -= 1;
-                    GUILayout.Label(Styles.advancedText, EditorStyles.boldLabel);
+                    GUILayout.Label(AKSStyles.advancedText, EditorStyles.boldLabel);
                     EditorGUI.indentLevel += 1;
                     m_MaterialEditor.EnableInstancingField();
                     m_MaterialEditor.DoubleSidedGIField();
@@ -219,13 +216,13 @@ namespace AKSBuiltin
                     //MaterialChanged((Material)obj, m_WorkflowMode);
                 }
             }
-            UIHelper.ShurikenHeader(Styles.nameAKStandard);
-            EditorGUILayout.LabelField(Styles.author);
-            EditorGUILayout.LabelField(Styles.version + ver);
+            AKSUIHelper.ShurikenHeader(AKSStyles.nameAKStandard);
+            EditorGUILayout.LabelField(AKSStyles.author);
+            AKSManager.DisplayVersion();
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button(Styles.btnReadme)) { UIHelper.OpenLink(Styles.linkReadme); }
-            if (GUILayout.Button(Styles.btnDescription)) { UIHelper.OpenLink(Styles.linkDescriptionAKStandard); }
+            if (GUILayout.Button(AKSStyles.btnReadme)) { AKSUIHelper.OpenLink(AKSStyles.linkReadme); }
+            if (GUILayout.Button(AKSStyles.btnDescription)) { AKSUIHelper.OpenLink(AKSStyles.linkDescriptionAKStandard); }
             EditorGUILayout.EndHorizontal();
         }
         internal void DetermineWorkflow(MaterialProperty[] props)
@@ -274,7 +271,7 @@ namespace AKSBuiltin
             BlendMode mode = (BlendMode)blendMode.floatValue;
 
             EditorGUI.BeginChangeCheck();
-            mode = (BlendMode)EditorGUILayout.Popup(Styles.renderingMode, (int)mode, blendNames);
+            mode = (BlendMode)EditorGUILayout.Popup(AKSStyles.renderingMode, (int)mode, blendNames);
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.RegisterPropertyChangeUndo("Rendering Mode");
@@ -289,7 +286,7 @@ namespace AKSBuiltin
         }
         private void DoNormalArea()
         {
-            m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, bumpMap, bumpMap.textureValue != null ? bumpScale : null);
+            m_MaterialEditor.TexturePropertySingleLine(AKSStyles.normalMapText, bumpMap, bumpMap.textureValue != null ? bumpScale : null);
             if (bumpScale.floatValue != 1 && UnityEditorInternal.InternalEditorUtility.IsMobilePlatform(EditorUserBuildSettings.activeBuildTarget))
                 if (m_MaterialEditor.HelpBoxWithButton(
                     EditorGUIUtility.TrTextContent("Bump scale is not supported on mobile platforms"),
@@ -300,10 +297,10 @@ namespace AKSBuiltin
         }
         private void DoAlbedoArea(Material material)
         {
-            m_MaterialEditor.TexturePropertySingleLine(Styles.albedoText, albedoMap, albedoColor);
+            m_MaterialEditor.TexturePropertySingleLine(AKSStyles.albedoText, albedoMap, albedoColor);
             if (((BlendMode)material.GetFloat("_Mode") == BlendMode.Cutout))
             {
-                m_MaterialEditor.ShaderProperty(alphaCutoff, Styles.alphaCutoffText.text, MaterialEditor.kMiniTextureFieldLabelIndentLevel + 1);
+                m_MaterialEditor.ShaderProperty(alphaCutoff, AKSStyles.alphaCutoffText.text, MaterialEditor.kMiniTextureFieldLabelIndentLevel + 1);
             }
         }
         private void DoEmissionArea(Material material)
@@ -311,7 +308,7 @@ namespace AKSBuiltin
             bool hadEmissionTexture = emissionMap.textureValue != null;
 
             // Texture and HDR color controls
-            m_MaterialEditor.TexturePropertyWithHDRColor(Styles.emissionText, emissionMap, emissionColorForRendering, false);
+            m_MaterialEditor.TexturePropertyWithHDRColor(AKSStyles.emissionText, emissionMap, emissionColorForRendering, false);
 
             // If texture was assigned and color was black set color to white
             float brightness = emissionColorForRendering.colorValue.maxColorComponent;
@@ -329,7 +326,7 @@ namespace AKSBuiltin
             {
                 hasGlossMap = metallicMap.textureValue != null;
                 hasRoughnessMap = roughnessMap.textureValue != null;
-                m_MaterialEditor.TexturePropertySingleLine(Styles.metallicMapText, metallicMap, hasGlossMap ? null : metallic);
+                m_MaterialEditor.TexturePropertySingleLine(AKSStyles.metallicMapText, metallicMap, hasGlossMap ? null : metallic);
             }
 
             bool showSmoothnessScale = hasGlossMap || hasRoughnessMap;
@@ -342,13 +339,13 @@ namespace AKSBuiltin
                 }
             }
 
-            m_MaterialEditor.TexturePropertySingleLine(Styles.smoothMapText, roughnessMap, (showSmoothnessScale ? smoothnessScale : smoothness));
+            m_MaterialEditor.TexturePropertySingleLine(AKSStyles.smoothMapText, roughnessMap, (showSmoothnessScale ? smoothnessScale : smoothness));
             //int indentation = 2; // align with labels of texture properties
             //m_MaterialEditor.ShaderProperty(showSmoothnessScale ? smoothnessScale : smoothness, showSmoothnessScale ? Styles.smoothnessScaleText : Styles.smoothnessText, indentation);
 
             if (smoothnessMapChannel != null)
             {
-                m_MaterialEditor.ShaderProperty(smoothnessMapChannel, Styles.smoothnessMapChannelText, 2);
+                m_MaterialEditor.ShaderProperty(smoothnessMapChannel, AKSStyles.smoothnessMapChannelText, 2);
             }
         }
         public static void SetupMaterialWithBlendMode(Material material, BlendMode blendMode)

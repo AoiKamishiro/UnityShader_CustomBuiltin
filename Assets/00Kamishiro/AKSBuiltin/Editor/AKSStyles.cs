@@ -8,18 +8,21 @@
  * 
  */
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 namespace AKSBuiltin
 {
-    public static class Styles
+    public class AKSStyles : MonoBehaviour
     {
-        public const string version = "Version: ";
+        public const string localVer = "Local Version: ";
+        public const string remoteVer = "Remote Version: ";
+        public const string btnUpdate = "Download latest version.";
         public const string btnDescription = "操作説明（日本語）";
         public const string btnReadme = "README.md";
         public const string nameAKStandard = "AK_Standard Shader";
         public const string nameAKUnlit = "AK_Unlit Shader";
         public const string author = "Author: AoiKamishiro / 神城アオイ";
+        public const string linkRelease = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/releases";
         public const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
         public const string linkDescriptionAKStandard = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKStandard_Description.md";
         public const string linkDescriptionAKUnlit = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKUnlit_Description.md";

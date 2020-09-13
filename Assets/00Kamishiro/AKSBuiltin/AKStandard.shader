@@ -1,17 +1,18 @@
 /*
- * Copyright (c) 2020 AoiKamishiro
- * 
- * This code is provided under the MIT license.
- *
- * This program uses the following code, which is provided under the MIT License.
- * https://download.unity3d.com/download_unity/008688490035/builtin_shaders-2018.4.20f1.zip?_ga=2.171325672.957521966.1599549120-262519615.1592172043
- * 
- */
- 
+* Copyright (c) 2020 AoiKamishiro
+*
+* This code is provided under the MIT license.
+*
+* This program uses the following code, which is provided under the MIT License.
+* https://download.unity3d.com/download_unity/008688490035/builtin_shaders-2018.4.20f1.zip?_ga=2.171325672.957521966.1599549120-262519615.1592172043
+*
+*/
+
 Shader "AKStandard"
 {
     Properties
     {
+        [HideInInspector]_Version ("Version", int) = 0
         _Color ("Color", Color) = (1, 1, 1, 1)
         _MainTex ("Albedo", 2D) = "white" { }
 
@@ -48,6 +49,7 @@ Shader "AKStandard"
 
         [Enum(UV0, 0, UV1, 1)] _UVSec ("UV Set for secondary textures", Float) = 0
         [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull Mode", float) = 2
+
 
 
         // Blending state
