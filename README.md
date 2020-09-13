@@ -3,9 +3,10 @@
 ## [English](https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/README_EN.md)
 ## ※更新の際は以前のバージョンを削除してからインポートしてください。  
 ### シェーダーについて
-改変 StandardShader と UnlitShader です。
-Standaerd シェーダーは、ラフネスマップへの対応と、カリングモードの切り替えが可能です。
+改変 StandardShader と UnlitShader です。  
+Standaerd シェーダーは、ラフネスマップへの対応と、カリングモードの切り替えが可能です。  
 Unlit シェーダーは、テクスチャとカラーの両方の入力に対応させ、シェーダーを変えずに Opaque や Transparent の切り替えが可能です。  
+* [Booth ショップページ](https://kamishirolab.booth.pm/items/2371605)
 ### 想定環境
 Unity 2018.4.20f1
 ### 使用方法
