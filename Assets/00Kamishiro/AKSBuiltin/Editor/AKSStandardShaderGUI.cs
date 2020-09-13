@@ -17,14 +17,8 @@ namespace AKSBuiltin
 {
     internal class AKSStandardShaderGUI : ShaderGUI
     {
-        private const string ver = "Version: 1.00";
-        private const string Text = "説明（日本語）";
-        private const string Text1 = "README.md";
-        private const string title = "AK_Standard Shader";
-        private const string author = "Author: AoiKamishiro / 神城アオイ";
-        private const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
-        private const string linkDescription = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKStandard_Description.md";
-
+        private const string ver = "1.00";
+        public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
         private enum WorkflowMode
         {
             Specular_,
@@ -43,43 +37,6 @@ namespace AKSBuiltin
             SpecularMetallicAlpha,
             AlbedoAlpha,
             RoughnessMap
-        }
-
-        private static class Styles
-        {
-            public static GUIContent uvSetLabel = EditorGUIUtility.TrTextContent("UV Set");
-            public static GUIContent albedoText = EditorGUIUtility.TrTextContent("Albedo", "Albedo (RGB) and Transparency (A)");
-            public static GUIContent alphaCutoffText = EditorGUIUtility.TrTextContent("Alpha Cutoff", "Threshold for alpha cutoff");
-            public static GUIContent specularMapText = EditorGUIUtility.TrTextContent("Specular", "Specular (RGB) and Smoothness (A)");
-            public static GUIContent metallicMapText = EditorGUIUtility.TrTextContent("Metallic", "Metallic (R) and Smoothness (A)");
-            public static GUIContent smoothnessText = EditorGUIUtility.TrTextContent("Smoothness", "Smoothness value");
-            public static GUIContent smoothnessScaleText = EditorGUIUtility.TrTextContent("Smoothness", "Smoothness scale factor");
-            public static GUIContent smoothnessMapChannelText = EditorGUIUtility.TrTextContent("Source", "Smoothness texture and channel");
-            public static GUIContent highlightsText = EditorGUIUtility.TrTextContent("Specular Highlights", "Specular Highlights");
-            public static GUIContent reflectionsText = EditorGUIUtility.TrTextContent("Reflections", "Glossy Reflections");
-            public static GUIContent normalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
-            public static GUIContent heightMapText = EditorGUIUtility.TrTextContent("Height Map", "Height Map (G)");
-            public static GUIContent occlusionText = EditorGUIUtility.TrTextContent("Occlusion", "Occlusion (G)");
-            public static GUIContent emissionText = EditorGUIUtility.TrTextContent("Color", "Emission (RGB)");
-            public static GUIContent detailMaskText = EditorGUIUtility.TrTextContent("Detail Mask", "Mask for Secondary Maps (A)");
-            public static GUIContent detailAlbedoText = EditorGUIUtility.TrTextContent("Detail Albedo x2", "Albedo (RGB) multiplied by 2");
-            public static GUIContent detailNormalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
-            public static GUIContent smoothMapText = EditorGUIUtility.TrTextContent("Smoothness", "Roughness Map");
-            public static GUIContent cullModeText = EditorGUIUtility.TrTextContent("Culling Mode", "Culling Mode");
-
-            public static string primaryMapsText = "Main Maps";
-            public static string secondaryMapsText = "Secondary Maps";
-            public static string options = "Options";
-            public static string forwardText = "Forward Rendering Options";
-            public static string renderingMode = "Rendering Mode";
-            public static string advancedText = "Advanced Options";
-            public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
-            public static string mainTitle = "Main";
-            public static string emissionTitle = "Emission";
-            public static string reflectionTitle = "Reflection";
-            public static string scaleOffsetTitle = "Scale Offset";
-            public static string detailTitle = "Detail";
-            public static string renderingOpTitle = "Rendering Options";
         }
 
         #region Material Property
@@ -262,14 +219,14 @@ namespace AKSBuiltin
                     //MaterialChanged((Material)obj, m_WorkflowMode);
                 }
             }
-                UIHelper.ShurikenHeader(title);
-                EditorGUILayout.LabelField(author);
-                EditorGUILayout.LabelField(ver);
-                EditorGUILayout.Space();
-                EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button(Text1)) { UIHelper.OpenLink(linkReadme); }
-                if (GUILayout.Button(Text)) { UIHelper.OpenLink(linkDescription); }
-                EditorGUILayout.EndHorizontal();
+            UIHelper.ShurikenHeader(Styles.nameAKStandard);
+            EditorGUILayout.LabelField(Styles.author);
+            EditorGUILayout.LabelField(Styles.version + ver);
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button(Styles.btnReadme)) { UIHelper.OpenLink(Styles.linkReadme); }
+            if (GUILayout.Button(Styles.btnDescription)) { UIHelper.OpenLink(Styles.linkDescriptionAKStandard); }
+            EditorGUILayout.EndHorizontal();
         }
         internal void DetermineWorkflow(MaterialProperty[] props)
         {
@@ -317,7 +274,7 @@ namespace AKSBuiltin
             BlendMode mode = (BlendMode)blendMode.floatValue;
 
             EditorGUI.BeginChangeCheck();
-            mode = (BlendMode)EditorGUILayout.Popup(Styles.renderingMode, (int)mode, Styles.blendNames);
+            mode = (BlendMode)EditorGUILayout.Popup(Styles.renderingMode, (int)mode, blendNames);
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.RegisterPropertyChangeUndo("Rendering Mode");

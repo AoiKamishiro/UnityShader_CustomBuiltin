@@ -16,29 +16,14 @@ using UnityEditor;
 namespace AKSBuiltin
 {
     internal class AKSUnlitShaderGUI : ShaderGUI
-    {private const string ver = "Version: 1.00";
-        private const string Text = "説明（日本語）";
-        private const string Text1 = "README.md";
-        private const string title = "AK_Unlit Shader";
-        private const string author = "Author: AoiKamishiro / 神城アオイ";
-        private const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
-        private const string linkDescription = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKUnlit_Description.md";
+    {
+        private const string ver = "1.00";
+        public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
         public enum BlendMode
         {
             Opaque,
             Cutout,
             Transparent // Physically plausible transparency mode, implemented as alpha pre-multiply
-        }
-        private static class Styles
-        {
-            public static GUIContent albedoText = EditorGUIUtility.TrTextContent("Albedo", "Albedo (RGB) and Transparency (A)");
-            public static GUIContent alphaCutoffText = EditorGUIUtility.TrTextContent("Alpha Cutoff", "Threshold for alpha cutoff");
-            public static GUIContent cullModeText = EditorGUIUtility.TrTextContent("Culling Mode", "Culling Mode");
-
-            public static string primaryMapsText = "Main Maps";
-            public static readonly string[] blendNames = Enum.GetNames(typeof(BlendMode));
-            public static string mainTitle = "Main";
-            public static string renderingOp = "Rendering Options";
         }
         private MaterialProperty blendMode = null;
         private MaterialProperty albedoMap = null;
@@ -47,7 +32,7 @@ namespace AKSBuiltin
         private MaterialProperty cullMode = null;
         private MaterialEditor m_MaterialEditor;
         private bool m_FirstTimeApply = true;
-        
+
         public void FindProperties(MaterialProperty[] props)
         {
             blendMode = FindProperty("_ModeU", props);
@@ -90,7 +75,7 @@ namespace AKSBuiltin
                 m_MaterialEditor.TextureScaleOffsetProperty(albedoMap);
                 EditorGUI.indentLevel -= 2;
                 UIHelper.ShurikenHeader("Options");
-                GUILayout.Label(Styles.renderingOp, EditorStyles.boldLabel);
+                GUILayout.Label(Styles.renderingOpTitle, EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
                 m_MaterialEditor.ShaderProperty(cullMode, Styles.cullModeText);
                 m_MaterialEditor.RenderQueueField();
@@ -103,14 +88,14 @@ namespace AKSBuiltin
                     // MaterialChanged((Material)obj);
                 }
             }
-                UIHelper.ShurikenHeader(title);
-                EditorGUILayout.LabelField(author);
-                EditorGUILayout.LabelField(ver);
-                EditorGUILayout.Space();
-                EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button(Text1)) { UIHelper.OpenLink(linkReadme); }
-                if (GUILayout.Button(Text)) { UIHelper.OpenLink(linkDescription); }
-                EditorGUILayout.EndHorizontal();
+            UIHelper.ShurikenHeader(Styles.nameAKUnlit);
+            EditorGUILayout.LabelField(Styles.author);
+            EditorGUILayout.LabelField(Styles.version + ver);
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button(Styles.btnReadme)) { UIHelper.OpenLink(Styles.linkReadme); }
+            if (GUILayout.Button(Styles.btnDescription)) { UIHelper.OpenLink(Styles.linkDescriptionAKUnlit); }
+            EditorGUILayout.EndHorizontal();
         }
         public override void AssignNewShaderToMaterial(Material material, Shader oldShader, Shader newShader)
         {
@@ -151,7 +136,7 @@ namespace AKSBuiltin
             BlendMode mode = (BlendMode)blendMode.floatValue;
 
             EditorGUI.BeginChangeCheck();
-            mode = (BlendMode)EditorGUILayout.Popup("Rendering Mode", (int)mode, Styles.blendNames);
+            mode = (BlendMode)EditorGUILayout.Popup("Rendering Mode", (int)mode, blendNames);
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.RegisterPropertyChangeUndo("Rendering Mode");
