@@ -32,7 +32,7 @@ namespace AKSBuiltin
         private MaterialEditor m_MaterialEditor;
         private bool m_FirstTimeApply = true;
 
-        public void FindProperties(MaterialProperty[] props)
+        private void FindProperties(MaterialProperty[] props)
         {
             blendMode = FindProperty("_ModeU", props);
             albedoMap = FindProperty("_MainTex", props);
@@ -56,7 +56,7 @@ namespace AKSBuiltin
             }
             ShaderPropertiesGUI(material);
         }
-        public void ShaderPropertiesGUI(Material material)
+        private void ShaderPropertiesGUI(Material material)
         {
             EditorGUIUtility.labelWidth = 0f;
             EditorGUILayout.Space();
@@ -148,7 +148,7 @@ namespace AKSBuiltin
 
             EditorGUI.showMixedValue = false;
         }
-        public static void SetupMaterialWithBlendMode(Material material, BlendMode blendMode)
+        private static void SetupMaterialWithBlendMode(Material material, BlendMode blendMode)
         {
             switch (blendMode)
             {

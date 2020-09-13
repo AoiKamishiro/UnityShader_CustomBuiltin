@@ -77,7 +77,7 @@ namespace AKSBuiltin
         private static bool foldSecond = true;
         private static bool foldOption = true;
 
-        public void FindProperties(MaterialProperty[] props)
+        private void FindProperties(MaterialProperty[] props)
         {
             blendMode = FindProperty("_Mode", props);
             albedoMap = FindProperty("_MainTex", props);
@@ -135,7 +135,7 @@ namespace AKSBuiltin
             }
             ShaderPropertiesGUI(material);
         }
-        public void ShaderPropertiesGUI(Material material)
+        private void ShaderPropertiesGUI(Material material)
         {
             EditorGUIUtility.labelWidth = 0f;
             EditorGUILayout.Space();
@@ -348,7 +348,7 @@ namespace AKSBuiltin
                 m_MaterialEditor.ShaderProperty(smoothnessMapChannel, AKSStyles.smoothnessMapChannelText, 2);
             }
         }
-        public static void SetupMaterialWithBlendMode(Material material, BlendMode blendMode)
+        private static void SetupMaterialWithBlendMode(Material material, BlendMode blendMode)
         {
             switch (blendMode)
             {

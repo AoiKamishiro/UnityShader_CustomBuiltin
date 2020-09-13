@@ -104,7 +104,7 @@ namespace AKSBuiltin
             EditorGUILayout.LabelField(AKSStyles.remoteVer + EditorUserSettings.GetConfigValue("akbuiltin_version_remote"));
             if (bool.TryParse(EditorUserSettings.GetConfigValue("aksbuiltin_need_update"), out bool needupdate) && needupdate)
             {
-                if (GUILayout.Button(AKSStyles.btnUpdate)) { AKSUIHelper.OpenLink(AKSStyles.linkReadme); }
+                if (GUILayout.Button(AKSStyles.btnUpdate)) { AKSUIHelper.OpenLink(AKSStyles.linkRelease); }
             }
         }
         public class GitJson
