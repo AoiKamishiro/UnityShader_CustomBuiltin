@@ -176,14 +176,12 @@
         #else
             mg.r = _Metallic;
             #ifdef _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-                mg.g = tex2D(_MainTex, uv).a * _GlossMapScale;
+                mg.g = tex2D(_MainTex, uv).a *_GlossMapScale;
             #elif _SMOOTHNESS_TEXTURE_ROUGHNESS_CHANNEL_G
-                mg.r = tex2D(_MetallicGlossMap, uv).r;
-                mg.g = tex2D(_RoughnessMap, uv).g;
+                mg.g = tex2D(_RoughnessMap, uv).g*_GlossMapScale;
             #else
                 mg.g = _Glossiness;
             #endif
-            mg.g *= _GlossMapScale;
         #endif
         return mg;
     }

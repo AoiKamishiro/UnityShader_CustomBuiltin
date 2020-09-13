@@ -84,7 +84,7 @@ namespace AKSBuiltin
             {
                 foreach (UnityEngine.Object obj in blendMode.targets)
                 {
-                    // MaterialChanged((Material)obj);
+                    MaterialChanged((Material)obj);
                 }
             }
             AKSUIHelper.ShurikenHeader(AKSStyles.nameAKUnlit);

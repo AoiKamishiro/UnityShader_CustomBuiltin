@@ -213,7 +213,7 @@ namespace AKSBuiltin
             {
                 foreach (UnityEngine.Object obj in blendMode.targets)
                 {
-                    //MaterialChanged((Material)obj, m_WorkflowMode);
+                    MaterialChanged((Material)obj, m_WorkflowMode);
                 }
             }
             AKSUIHelper.ShurikenHeader(AKSStyles.nameAKStandard);
