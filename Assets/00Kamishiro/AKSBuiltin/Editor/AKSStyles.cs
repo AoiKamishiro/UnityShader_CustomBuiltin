@@ -28,7 +28,6 @@ namespace AKSBuiltin
         public static GUIContent uvSetLabel = EditorGUIUtility.TrTextContent("UV Set");
         public static GUIContent albedoText = EditorGUIUtility.TrTextContent("Albedo", "Albedo (RGB) and Transparency (A)");
         public static GUIContent alphaCutoffText = EditorGUIUtility.TrTextContent("Alpha Cutoff", "Threshold for alpha cutoff");
-        public static GUIContent specularMapText = EditorGUIUtility.TrTextContent("Specular", "Specular (RGB) and Smoothness (A)");
         public static GUIContent metallicMapText = EditorGUIUtility.TrTextContent("Metallic", "Metallic (R) and Smoothness (A)");
         public static GUIContent smoothnessText = EditorGUIUtility.TrTextContent("Smoothness", "Smoothness value");
         public static GUIContent smoothnessScaleText = EditorGUIUtility.TrTextContent("Smoothness", "Smoothness scale factor");
@@ -56,6 +55,6 @@ namespace AKSBuiltin
         public const string reflectionTitle = "Reflection";
         public const string scaleOffsetTitle = "Scale Offset";
         public const string detailTitle = "Detail";
-        public static string renderingOpTitle = "Rendering Options";
+        public const string renderingOpTitle = "Rendering Options";
     }
 }
