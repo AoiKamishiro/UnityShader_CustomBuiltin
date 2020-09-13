@@ -183,6 +183,7 @@
             #else
                 mg.g = _Glossiness;
             #endif
+            mg.g *= _GlossMapScale;
         #endif
         return mg;
     }
