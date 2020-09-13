@@ -18,7 +18,7 @@ namespace AKSBuiltin
         public const string btnDescription = "操作説明（日本語）";
         public const string btnReadme = "README.md";
         public const string nameAKStandard = "AK_Standard Shader";
-        public const string nameAKUnlit = "AK_Unlit Shaderg";
+        public const string nameAKUnlit = "AK_Unlit Shader";
         public const string author = "Author: AoiKamishiro / 神城アオイ";
         public const string linkReadme = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin";
         public const string linkDescriptionAKStandard = "https://github.com/AoiKamishiro/UnityShader_CustomBuiltin/blob/master/AKStandard_Description.md";
