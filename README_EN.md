@@ -4,7 +4,8 @@
 ### About Shaders.
 Modifications StandardShader and UnlitShader.
 The Standaerd shader has support for roughness maps and can switch between culling modes.
-The Unlit shader supports both texture and color inputs and can switch between Opaque and Transparent without changing the shader.  
+The Unlit shader supports both texture and color inputs and can switch between Opaque and Transparent without changing the shader.    
+* [Booth Page](https://kamishirolab.booth.pm/items/2371605)
 ### Assumptions.
 Unity 2018.4.20f1
 ### Use.
