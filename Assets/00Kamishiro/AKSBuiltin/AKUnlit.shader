@@ -94,5 +94,6 @@ Shader "AKUnlit"
             
         }
     }
-    CustomEditor "AKSBuiltin.AKSUnlitShaderGUI"
+    Fallback "Unlit/Texture"
+    CustomEditor "Kamishiro.UnityShader.CustomBuiltin.AKSUnlitShaderGUI"
 }

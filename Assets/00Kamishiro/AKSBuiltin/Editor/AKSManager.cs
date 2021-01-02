@@ -13,7 +13,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Networking;
-namespace AKSBuiltin
+namespace Kamishiro.UnityShader.CustomBuiltin
 {
     public class AKSManager : MonoBehaviour
     {

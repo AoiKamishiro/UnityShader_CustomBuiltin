@@ -11,7 +11,7 @@
 
 using UnityEditor;
 using UnityEngine;
-namespace AKSBuiltin
+namespace Kamishiro.UnityShader.CustomBuiltin
 {
     public static class AKSUIHelper
     {

@@ -391,6 +391,6 @@ Shader "AKStandard"
             
         }
     }
-    FallBack "AKUnlit"
-    CustomEditor "AKSBuiltin.AKSStandardShaderGUI"
+    FallBack "Standard"
+    CustomEditor "Kamishiro.UnityShader.CustomBuiltin.AKSStandardShaderGUI"
 }

@@ -10,7 +10,7 @@
 
 using UnityEditor;
 using UnityEngine;
-namespace AKSBuiltin
+namespace Kamishiro.UnityShader.CustomBuiltin
 {
     public class AKSStyles : MonoBehaviour
     {
