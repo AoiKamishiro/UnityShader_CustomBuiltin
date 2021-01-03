@@ -13,7 +13,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Kamishiro.UnityShader.CustomBuiltin
+namespace Kamishiro.UnityShader.CustomizedBuiltin
 {
     internal class AKSStandardShaderGUI : ShaderGUI
     {
